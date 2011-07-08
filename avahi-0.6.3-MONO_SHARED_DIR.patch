@@ -1,0 +1,24 @@
+--- avahi-0.6.4/avahi-sharp/Makefile.am.MONO_SHARED_DIR	2005-12-22 07:36:22.000000000 -0500
++++ avahi-0.6.4/avahi-sharp/Makefile.am	2006-01-18 14:52:36.000000000 -0500
+@@ -48,7 +48,7 @@
+ 	$(srcdir)/gencfg.sh
+ 
+ $(ASSEMBLY): $(AVAHISOURCES)
+-	mcs -keyfile:$(srcdir)/avahi.snk -target:library -out:$@ -debug $(AVAHISOURCES) -r:Mono.Posix
++	MONO_SHARED_DIR=. mcs -keyfile:$(srcdir)/avahi.snk -target:library -out:$@ -debug $(AVAHISOURCES) -r:Mono.Posix
+ 
+ 
+ $(ASSEMBLY).config: $(ASSEMBLY).config.in
+@@ -73,10 +73,10 @@
+ endif
+ 
+ install-data-hook: $(ASSEMBLY)
+-	$(GACUTIL) /i $(ASSEMBLY) /package avahi-sharp /gacdir $(libdir) /root $(DESTDIR)$(libdir)
++	MONO_SHARED_DIR=. $(GACUTIL) /i $(ASSEMBLY) /package avahi-sharp /gacdir $(libdir) /root $(DESTDIR)$(libdir)
+ 
+ uninstall-hook: $(ASSEMBLY)
+-	$(GACUTIL) /u avahi-sharp /package avahi-sharp /gacdir $(libdir) /root $(DESTDIR)$(libdir)
++	MONO_SHARED_DIR=. $(GACUTIL) /u avahi-sharp /package avahi-sharp /gacdir $(libdir) /root $(DESTDIR)$(libdir)
+ 
+ endif
+ endif
